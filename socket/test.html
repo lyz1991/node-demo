@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="lib/jquery-1.8.3.min.js"></script>
+    <script src="socket.io.js"></script>
+</head>
+<body>
+<input type="text" id="val">
+<button id="btn">提交</button>
+<div id="content"></div>
+</body>
+<script>
+    window.onload=function(){
+        var socket = io.connect('/');
+        var btn=document.getElementById("btn"),input=document.getElementById("val"),container=document.getElementById("content");
+        btn.onclick=function(){
+            var val=input.value;
+            var p=document.createElement("p"),text=document.createTextNode(val);
+            p.appendChild(text);
+            container.appendChild(p)
+            socket.send(val)
+        }
+
+        socket.on('connect',function(){
+
+        });
+
+        socket.on('lyz',function(data){
+            var p=document.createElement("p"),text=document.createTextNode(data);
+            p.appendChild(text);
+            container.appendChild(p)
+
+
+
+
+        });
+    }
+
+</script>
+</html>
